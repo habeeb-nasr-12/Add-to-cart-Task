@@ -1,5 +1,6 @@
 // display  products
 
+
 function displayProducts() {
     let container = "";
     for (let i = 0; i < products.length; i++) {
@@ -146,7 +147,7 @@ function changeNumberOfUnits(action, id) {
             numberOfUnits
         }
     })
-    console.log(cart)
+   
     updateCart()
 }
 // render cart items
@@ -185,9 +186,11 @@ function renderCartItems() {
 function renderSubTotal() {
     let totalPrice = 0
     let totalItems = 0
+
     cart.forEach((item) => {
         totalPrice += item.productPrice * item.numberOfUnits
-        totalItems = item.numberOfUnits
+        totalItems += item.numberOfUnits
+     
     })
     subTotal.innerHTML = `    Subtotal (${totalItems} items): $${totalPrice.toFixed(2)}`
 }
