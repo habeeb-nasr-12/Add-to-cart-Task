@@ -1,9 +1,5 @@
 // display  products
 
-
-
-
-
 function displayProducts() {
     let container = "";
     for (let i = 0; i < products.length; i++) {
@@ -57,7 +53,7 @@ closeBtn.addEventListener('click', function () {
 //Add to cart feature
 //define variabules
 let cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []
-let productCounter = localStorage.getItem("counter") ?JSON.parse(localStorage.getItem("counter")) :0
+let productCounter = localStorage.getItem("counter") ? JSON.parse(localStorage.getItem("counter")) : 0
 let badge = document.querySelector('.padge')
 badge.innerHTML = productCounter
 let cardItem = document.querySelector('.cart-item ')
@@ -90,10 +86,10 @@ function cartHandler(id) {
         }
         displayProducts()
         badge.innerHTML = productCounter
-      
 
 
-     
+
+
 
 
 
@@ -106,7 +102,7 @@ function cartHandler(id) {
 
         productCounter += 1
         badge.innerHTML = productCounter
-  
+
 
 
 
