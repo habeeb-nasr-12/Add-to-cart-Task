@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home</title>
+        <link rel="stylesheet" href="./css/style.css">
+        <link rel="stylesheet" href="./css/cart.css">
+    </head>
+    <body>
+        <!-- Navbar -->
+        <div class="navbar">
+            <div class="container">
+                <ul class="d-flex">
+                    <li>
+                        <h1>
+                            <a href="/"> Valinteca</a>
+                        </h1>
+                    </li>
+                    <li>
+                        <div class="d-flex flex-wrap">
+                            <div class="dropdown">
+                                <div class="icon-cart" style="float: left">
+                                    <div class="cart-line-1" style="background-color: #E5E9EA"></div>
+                                    <div class="cart-line-2" style="background-color: #E5E9EA"></div>
+                                    <div class="cart-line-3" style="background-color: #E5E9EA"></div>
+                                    <div class="cart-wheel" style="background-color: #E5E9EA"></div>
+                                </div>
+                                <button class="dropbtn">Cart</button>
+                                <div class="dropdown-content">
+                                    <a class="text-center open-cart">added to cart</a>
+                                </div>
+                            </div>
+                            <p class="padge m-3">0</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- products section  -->
+        <section class="items mt-3">
+            <div class="container products-container">
+                <div class="products"></div>
+            </div>
+        </section>
+        <!-- Model -->
+        <div class="model" id="model">
+            <div class="model-content text-center">
+                <span class="closebtn">  &times;</span>
+                <img src="images/1.jpg" alt="product deatils" class=" model-img w-100">
+                <h2 class="model-name"></h2>
+                <h4 class="model-Price"></h4>
+            </div>
+        </div>
+        <!-- shopping Cart -->
+        <section  class="container cart-section">
+            <div class="cart py-2">
+                <div class="cart-item"></div>
+                <div class="cart-footer ">
+                    <div class="subtotal">
+                        Subtotal (0 items): $0
+                    </div>
+                    <div class="checkout">
+                        Proceed to checkout
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script src="js/data.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>
