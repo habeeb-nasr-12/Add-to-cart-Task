@@ -334,6 +334,7 @@ a {
     -o-border-radius: 10px;
 }
 
+
 .closebtn {
     color: #ccc;
     float: right;
@@ -372,5 +373,9 @@ a {
     flex-wrap: wrap;
 }
 
-
+@media screen and (max-width:670px) {
+    .model-img{
+        height: 50%;
+    }
+}
 
