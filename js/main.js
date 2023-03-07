@@ -1,6 +1,4 @@
 // display  products
-
-
 function displayProducts() {
     let container = "";
     for (let i = 0; i < products.length; i++) {
@@ -18,19 +16,18 @@ function displayProducts() {
 
 }
 displayProducts()
-// creating model for each product 
+//define variabules
 let productName, productImage, productPrice;
 let model = document.getElementById('model');
-
 let quickViewButtons = document.querySelectorAll('.quick-view')
 let allImages = document.querySelectorAll('.product-img')
 let allNames = document.querySelectorAll('.productname')
 let allPrices = document.querySelectorAll('.productprice')
-
 let modelImage = document.querySelector('.model-img')
 let modelName = document.querySelector('.model-name')
 let modelPrice = document.querySelector('.model-Price')
 
+// creating model for each product 
 
 for (let i = 0; i < quickViewButtons.length; i++) {
 
@@ -42,6 +39,8 @@ for (let i = 0; i < quickViewButtons.length; i++) {
         modelPrice.innerHTML = productPrice
         modelImage.setAttribute('src', productImage)
         model.style.display = "block"
+
+
     })
 
 
@@ -52,8 +51,11 @@ closeBtn.addEventListener('click', function () {
 })
 
 //Add to cart feature
-//define variabules
+
+
+//define cart  variabules
 let cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []
+const openCart = document.querySelector('.open-cart')
 let productCounter = localStorage.getItem("counter") ? JSON.parse(localStorage.getItem("counter")) : 0
 let badge = document.querySelector('.padge')
 badge.innerHTML = productCounter
@@ -63,7 +65,7 @@ if (cart) {
     updateCart()
 }
 //open cart screen
-const openCart = document.querySelector('.open-cart')
+
 openCart.addEventListener("click", function (e) {
 
     document.querySelector('.products-container').style.display = "none"
@@ -147,7 +149,7 @@ function changeNumberOfUnits(action, id) {
             numberOfUnits
         }
     })
-   
+
     updateCart()
 }
 // render cart items
@@ -183,23 +185,22 @@ function renderCartItems() {
 }
 
 // renderSubTotal
+
 function renderSubTotal() {
     let totalPrice = 0
     let totalItems = 0
-
     cart.forEach((item) => {
         totalPrice += item.productPrice * item.numberOfUnits
         totalItems += item.numberOfUnits
-     
+       
     })
+    productCounter =totalItems
+    badge.innerHTML = productCounter
     subTotal.innerHTML = `    Subtotal (${totalItems} items): $${totalPrice.toFixed(2)}`
 }
 //remove function from cart
 function removeItemFromCart(id) {
     cart = cart.filter((item) => item.id != id)
-    productCounter = cart.length
-
-    badge.innerHTML = productCounter
     updateCart()
 }
 //updating cart 
