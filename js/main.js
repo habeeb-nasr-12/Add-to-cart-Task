@@ -1,14 +1,23 @@
+//define cart
+let cart = JSON.parse(localStorage.getItem("cart")) || []
 // display  products
 function displayProducts() {
     let container = "";
+  
+
+
+
     for (let i = 0; i < products.length; i++) {
+
+
+
         container += `<div class="product text-center ">
      <img src="${products[i].productImage}" class="w-100 product-img " alt="product-img">
      <h2 class= "productname"> ${products[i].productName}</h2>
      <h4 class = "productprice">${products[i].productPrice}$</h4>
-     <button  onclick="cartHandler(${products[i].id})"  class="add-to-cart">${products[i].added_To_Cart == true ? "Remove from cart " : "Add To cart"}</button>
+     <button  onclick="cartHandler(${products[i].id})"  class="add-to-cart">${products[i].added_To_Cart ? " Remove fom cart" : "Add to cart"}</button>
      <button
-      id="modelbtn"  class="quick-view">Quick-view</button>
+      id="modelbtn" onclick="quickView(${products[i].id})"  class="quick-view">Quick-view</button>
     </div>
      `
     };
@@ -17,34 +26,28 @@ function displayProducts() {
 }
 displayProducts()
 //define variabules
-let productName, productImage, productPrice;
 let model = document.getElementById('model');
-let quickViewButtons = document.querySelectorAll('.quick-view')
-let allImages = document.querySelectorAll('.product-img')
-let allNames = document.querySelectorAll('.productname')
-let allPrices = document.querySelectorAll('.productprice')
 let modelImage = document.querySelector('.model-img')
 let modelName = document.querySelector('.model-name')
 let modelPrice = document.querySelector('.model-Price')
+let cartBtn = document.querySelectorAll('.add-to-cart')
 
 // creating model for each product 
 
-for (let i = 0; i < quickViewButtons.length; i++) {
 
-    quickViewButtons[i].addEventListener('click', function () {
-        productImage = allImages[i].getAttribute('src')
-        productName = allNames[i].innerHTML
-        productPrice = allPrices[i].innerHTML
-        modelName.innerHTML = productName
-        modelPrice.innerHTML = productPrice
-        modelImage.setAttribute('src', productImage)
-        model.style.display = "block"
+function quickView(id) {
 
-
-    })
+    const element = products.find(elm => elm.id == id)
+    modelName.innerHTML = element.productName
+    modelPrice.innerHTML = element.productPrice
+    modelImage.setAttribute('src', element.productImage)
+    model.style.display = "block"
 
 
 }
+
+
+
 let closeBtn = document.querySelector('.closebtn');
 closeBtn.addEventListener('click', function () {
     model.style.display = 'none'
@@ -54,16 +57,14 @@ closeBtn.addEventListener('click', function () {
 
 
 //define cart  variabules
-let cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []
+
 const openCart = document.querySelector('.open-cart')
 let productCounter = localStorage.getItem("counter") ? JSON.parse(localStorage.getItem("counter")) : 0
 let badge = document.querySelector('.padge')
 badge.innerHTML = productCounter
 let cardItem = document.querySelector('.cart-item ')
 const subTotal = document.querySelector('.subtotal')
-if (cart) {
-    updateCart()
-}
+
 //open cart screen
 
 openCart.addEventListener("click", function (e) {
@@ -73,50 +74,50 @@ openCart.addEventListener("click", function (e) {
 })
 
 
-
-//add to cart annd removefrom cart 
+//add to cart annd remove from cart 
 function cartHandler(id) {
 
     if (cart.find((item) => item.id == id)) {
         const item = products.find((product) => product.id == id)
         const deletedElement = cart.indexOf(item)
         products[id].added_To_Cart = false
-        products[id].numberOfUnits -= 1
+
+
+        // cartBtn[deletedElement].innerHTML="Add to Cart "
         cart.splice(deletedElement, 1)
 
+
         if (productCounter > 0) {
+            products[id].numberOfUnits -= 1
             productCounter -= 1
         }
         displayProducts()
         badge.innerHTML = productCounter
 
-
-
-
-
-
-
     } else {
         const item = products.find((product) => product.id == id)
         cart.push(item)
+        const addedElement = cart.indexOf(item)
+
         products[id].added_To_Cart = true
         products[id].numberOfUnits += 1
-        displayProducts()
 
         productCounter += 1
         badge.innerHTML = productCounter
 
-
-
-
-
+        displayProducts()
 
 
     }
+
     updateCart()
 
 
 }
+
+
+
+
 
 
 
@@ -154,6 +155,7 @@ function changeNumberOfUnits(action, id) {
 }
 // render cart items
 function renderCartItems() {
+    console.log(cart)
     cardItem.innerHTML = ''
     cart.forEach((item) => {
         cardItem.innerHTML += `  <div class="d-flex">
@@ -192,22 +194,27 @@ function renderSubTotal() {
     cart.forEach((item) => {
         totalPrice += item.productPrice * item.numberOfUnits
         totalItems += item.numberOfUnits
-       
+
     })
-    productCounter =totalItems
+    productCounter = totalItems
     badge.innerHTML = productCounter
     subTotal.innerHTML = `    Subtotal (${totalItems} items): $${totalPrice.toFixed(2)}`
 }
 //remove function from cart
 function removeItemFromCart(id) {
+    item =cart.find((item )=> item.id ==id )
     cart = cart.filter((item) => item.id != id)
+    let deltedItem= products.indexOf(item)
+    products[deltedItem].added_To_Cart=false
     updateCart()
 }
 //updating cart 
-function updateCart() {
-    renderCartItems()
+function updateCart() { 
     renderSubTotal()
+    renderCartItems()
     localStorage.setItem("cart", JSON.stringify(cart))
     localStorage.setItem("counter", JSON.stringify(productCounter))
+    localStorage.setItem("products", JSON.stringify(products))
+   
 
 }
