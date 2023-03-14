@@ -1,12 +1,7 @@
-//define cart
-let cart = JSON.parse(localStorage.getItem("cart")) || []
+
 // display  products
 function displayProducts() {
     let container = "";
-  
-
-
-
     for (let i = 0; i < products.length; i++) {
 
 
@@ -54,21 +49,25 @@ closeBtn.addEventListener('click', function () {
 })
 
 //Add to cart feature
-
+//define cart
+let cart = JSON.parse(localStorage.getItem("cart")) || []
 
 //define cart  variabules
-
-const openCart = document.querySelector('.open-cart')
-let productCounter = localStorage.getItem("counter") ? JSON.parse(localStorage.getItem("counter")) : 0
+let productCounter =JSON.parse(localStorage.getItem("counter")) || 0;
+const openCart = document.querySelector('.checkout')
+let total =document.querySelector(".total")
 let badge = document.querySelector('.padge')
 badge.innerHTML = productCounter
 let cardItem = document.querySelector('.cart-item ')
+let cartItems =document.querySelector(".shopping-cart-items")
 const subTotal = document.querySelector('.subtotal')
+let cartDropDown=document.querySelector(".shopping-cart")
+const cartToggle =document.getElementById("cart")
 
 //open cart screen
 
 openCart.addEventListener("click", function (e) {
-
+  
     document.querySelector('.products-container').style.display = "none"
     document.querySelector('.cart-section').style.display = "block"
 })
@@ -78,33 +77,33 @@ openCart.addEventListener("click", function (e) {
 function cartHandler(id) {
 
     if (cart.find((item) => item.id == id)) {
-        const item = products.find((product) => product.id == id)
-        const deletedElement = cart.indexOf(item)
+        const item = cart.find((product) => product.id == id) 
+        let deletedItem = cart.indexOf(item)
         products[id].added_To_Cart = false
-
-
-        // cartBtn[deletedElement].innerHTML="Add to Cart "
-        cart.splice(deletedElement, 1)
-
-
-        if (productCounter > 0) {
-            products[id].numberOfUnits -= 1
-            productCounter -= 1
+        cart.splice(deletedItem, 1)
+   if (productCounter > 0,products[id].numberOfUnits>0) {
+        
+            products[id].numberOfUnit =0
+            productCounter --
+            badge.innerHTML = productCounter
         }
+  
+        
         displayProducts()
-        badge.innerHTML = productCounter
+      
 
     } else {
         const item = products.find((product) => product.id == id)
-        cart.push(item)
-        const addedElement = cart.indexOf(item)
-
         products[id].added_To_Cart = true
-        products[id].numberOfUnits += 1
+        products[id].numberOfUnits=1
 
-        productCounter += 1
+        cart.push(item)  
+        productCounter +=1
+ 
         badge.innerHTML = productCounter
-
+     
+      
+       
         displayProducts()
 
 
@@ -130,14 +129,14 @@ function changeNumberOfUnits(action, id) {
         if (item.id === id) {
 
             if (action == 'minus' && numberOfUnits > 1) {
-                numberOfUnits--
-                productCounter--
+                numberOfUnits-=1
+                productCounter-=1
                 badge.innerHTML = productCounter
 
 
             } else if (action == 'plus') {
-                numberOfUnits++
-                productCounter++
+                numberOfUnits+=1
+                productCounter+=1
                 badge.innerHTML = productCounter
 
 
@@ -154,10 +153,12 @@ function changeNumberOfUnits(action, id) {
     updateCart()
 }
 // render cart items
+//render cart dropdown
 function renderCartItems() {
-    console.log(cart)
+     cartItems.innerHTML=''                     
     cardItem.innerHTML = ''
     cart.forEach((item) => {
+                                                                                                                                                                     
         cardItem.innerHTML += `  <div class="d-flex">
         <div class="cart-header text-center  cart-coulmn">
             <h3 class="column d-block">Item</h3>
@@ -183,8 +184,21 @@ function renderCartItems() {
         </div>
         </div>
     </div>`
+     cartItems.innerHTML+= `  <li class="clearfix">
+     <img src="${item.productImage}" class="w-100" alt="${item.productName}" />
+     <span class="item-name">${item.productName}</span>
+    <div class="d-flex"> 
+    <span class="item-price">${item.productPrice}</span>
+    <span class="item-quantity">Quantity: ${item.numberOfUnits}</span>  
+    </div>
+   </li>`
     })
 }
+//render cart item if there is a reaload 
+if (cart){
+   updateCart()
+}
+
 
 // renderSubTotal
 
@@ -193,19 +207,24 @@ function renderSubTotal() {
     let totalItems = 0
     cart.forEach((item) => {
         totalPrice += item.productPrice * item.numberOfUnits
+     
         totalItems += item.numberOfUnits
 
     })
+    total.innerHTML= totalPrice
     productCounter = totalItems
     badge.innerHTML = productCounter
     subTotal.innerHTML = `    Subtotal (${totalItems} items): $${totalPrice.toFixed(2)}`
 }
 //remove function from cart
 function removeItemFromCart(id) {
-    item =cart.find((item )=> item.id ==id )
+    const item = products.find((product) => product.id == id)
+    const deletedElement = products.indexOf(item)
+   products[deletedElement].added_To_Cart=false
     cart = cart.filter((item) => item.id != id)
-    let deltedItem= products.indexOf(item)
-    products[deltedItem].added_To_Cart=false
+
+
+    
     updateCart()
 }
 //updating cart 
@@ -218,3 +237,15 @@ function updateCart() {
    
 
 }
+
+
+ //opening cart toggle and navigate to cart screen
+cartToggle.addEventListener("click", function() {
+      if (cartDropDown.style.display=="block"){
+        cartDropDown.style.display="none"
+      }else {
+     
+        cartDropDown.style.display="block"
+      }
+    });
+    

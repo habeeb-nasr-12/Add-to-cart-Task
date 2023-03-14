@@ -11,32 +11,42 @@
     <body>
         <!-- Navbar -->
         <div class="navbar">
-            <div class="container">
-                <ul class="d-flex">
+            <nav>
+                <div class="container d-flex">
+                  <ul class="navbar-header">
                     <li>
                         <h1>
                             <a href="/"> Valinteca</a>
                         </h1>
                     </li>
-                    <li>
-                        <div class="d-flex flex-wrap">
-                            <div class="dropdown">
-                                <div class="icon-cart" style="float: left">
-                                    <div class="cart-line-1" style="background-color: #E5E9EA"></div>
-                                    <div class="cart-line-2" style="background-color: #E5E9EA"></div>
-                                    <div class="cart-line-3" style="background-color: #E5E9EA"></div>
-                                    <div class="cart-wheel" style="background-color: #E5E9EA"></div>
-                                </div>
-                                <button class="dropbtn">Cart</button>
-                                <div class="dropdown-content">
-                                    <a class="text-center open-cart">added to cart</a>
-                                </div>
-                            </div>
-                            <p class="padge m-3">0</p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+                  </ul> <!--end navbar-left -->
+              
+                  <ul class="navbar-cart">
+                    <li><a href="#" id="cart"><i class="fa fa-shopping-cart"></i> Cart <span class="padge">0</span></a></li>
+                  </ul> <!--end navbar-right -->
+                </div> <!--end container -->
+              </nav>
+              
+              
+              <div class="container">
+                <div class="shopping-cart">
+                  <div class="shopping-cart-header">
+                    <div class="shopping-cart-total d-flex">
+                      <span class="lighter-text">Total:</span>
+                      <span class="main-color-text total">0</span>
+                    </div>
+                  </div> <!--end shopping-cart-header -->
+              
+                  <ul class="shopping-cart-items">
+                  
+              
+                
+                  </ul>
+              
+                  <a href="#" class="button checkout">Checkout</a>
+                </div> <!--end shopping-cart -->
+              </div> <!--end container -->
+           
         </div>
         <!-- products section  -->
         <section class="items mt-3">
@@ -50,10 +60,10 @@
                 <span class="closebtn">  &times;</span>
                 <img src="images/1.jpg" alt="product deatils" class=" model-img w-100">
                 <h2 class="model-name"></h2>
-                <h4 class="model-Price"></h4>
+                <h4 class="model-Price mb-3"></h4>
             </div>
         </div>
-        <!-- shopping Cart -->
+        <!--  Cart screen -->
         <section  class="container cart-section">
             <div class="cart py-2">
                 <div class="cart-item"></div>
@@ -71,3 +81,32 @@
         <script src="js/main.js"></script>
     </body>
 </html>
+
+
+
+<!-- <div class="container">
+    <ul class="d-flex">
+        <li>
+            <h1>
+                <a href="/"> Valinteca</a>
+            </h1>
+        </li>
+        <li>
+            <div class="d-flex flex-wrap">
+                <div class="dropdown">
+                    <div class="icon-cart" style="float: left">
+                        <div class="cart-line-1" style="background-color: #E5E9EA"></div>
+                        <div class="cart-line-2" style="background-color: #E5E9EA"></div>
+                        <div class="cart-line-3" style="background-color: #E5E9EA"></div>
+                        <div class="cart-wheel" style="background-color: #E5E9EA"></div>
+                    </div>
+                    <button class="dropbtn">Cart</button>
+                    <div class="dropdown-content">
+                        <a class="text-center open-cart">added to cart</a>
+                    </div>
+                </div>
+                <p class="padge m-3">0</p>
+            </div>
+        </li>
+    </ul>
+</div> -->
