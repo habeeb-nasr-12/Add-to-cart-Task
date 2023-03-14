@@ -211,7 +211,7 @@ function renderSubTotal() {
         totalItems += item.numberOfUnits
 
     })
-    total.innerHTML= totalPrice
+    total.innerHTML= totalPrice.toFixed(2)
     productCounter = totalItems
     badge.innerHTML = productCounter
     subTotal.innerHTML = `    Subtotal (${totalItems} items): $${totalPrice.toFixed(2)}`
